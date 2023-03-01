@@ -1,0 +1,14 @@
+models/time-series/df-predict-1days.csv
+models/time-series/df-predict-2days.csv
+models/time-series/df-predict-3days.csv
+models/time-series/df-predict-4days.csv
+models/time-series/df-predict-5days.csv
+models/time-series/df-predict-6days.csv
+models/time-series/df-predict-7days.csv
+models/time-series/time_series_model1.pkl.z
+models/time-series/time_series_model2.pkl.z
+models/time-series/time_series_model3.pkl.z
+models/time-series/time_series_model4.pkl.z
+models/time-series/time_series_model5.pkl.z
+models/time-series/time_series_model6.pkl.z
+models/time-series/time_series_model7.pkl.z

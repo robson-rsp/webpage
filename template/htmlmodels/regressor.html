@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/css/regressor.css" rel="stylesheet">
+    <title>Regressor</title>
+  </head>
+  <body>
+    <h1 style="text-align:center;">PREÇO DE AUTOMÓVEL SEMINOVO</h1>
+    <p style="text-align:justify; padding:20px;">Você planeja vender seu carro, mas não consegue definir um preço justo. Para ajudá-lo nesta decisão, o modelo desta página foi treinado em um conjunto de dados com mais de oitenta mil veículos seminovos. Desse modo, ele conseguirá estabelecer um preço justo para o seu automóvel de acordo com as suas características.</p>
+    <p style="text-align:justify; padding:20px; margin-top:-55px;">
+      <b>Obs.</b> O conjunto de dados usado no treinamento do modelo é de automóveis dos EUA, por isso seus preços estão em dolar.
+    </p>
+    <div class="w-100 p-3" style="margin: auto;">
+      <form action="/formregressor" method="post">
+        <table class="table table-striped">
+          <!-- ======= Linha 01 ======= -->
+          <tr>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Modelo</span>
+                <select id="select_model" name="model" class="form-select" aria-label="Default select example"></select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Transmissão</span>
+                <select id="select_transmission" name="transmission" class="form-select" aria-label="Default select example"></select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Kilometragem</span>
+                <input type="text" name="mileage" placeholder="[1, 80_000]" aria-label="First name" class="form-control">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Combustível</span>
+                <select id="select_fueltype" name="fueltype" class="form-select" aria-label="Default select example"></select>
+              </div>
+            </td>
+          </tr>
+          <!-- ======= Linha 02 ======= -->
+          <tr>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Licenciamento (R$)</span>
+                <input type="text" name="tax" placeholder="[0, 300]" aria-label="First name" class="form-control">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Km/Litro</span>
+                <input type="text" name="mpg" placeholder="[1, 100]" aria-label="First name" class="form-control">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Motor</span>
+                <select id="select_enginesize" name="enginesize" class="form-select" aria-label="Default select example"></select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Ano</span>
+                <select id="select_year" name="year" class="form-select" aria-label="Default select example"></select>
+              </div>
+            </td>
+          </tr>
+          <!-- ======= Linha 03 ======= -->
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <div class="input-group">
+                <input type="submit" name="submit">
+              </div>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <p style="text-align: center;">O preço sugerido é: $ {{ number }}</p>
+	<script>
+		var models = [' 1 Series', ' 2 Series', ' 3 Series', ' 4 Series', ' 5 Series', ' 6 Series', ' 7 Series', ' 8 Series', ' A Class', ' A1', ' A2', ' A3', ' A4', ' A5', ' A6', ' A7', ' A8', ' Accent', ' Adam', ' Agila', ' Amarok', ' Amica', ' Ampera', ' Antara', ' Arteon', ' Astra', ' Auris', ' Avensis', ' Aygo', ' B Class', ' B-MAX', ' Beetle', ' C Class', ' C-HR', ' C-MAX', ' CC', ' CL Class', ' CLA Class', ' CLC Class', ' CLK', ' CLS Class', ' Caddy', ' Caddy Life', ' Caddy Maxi', ' Caddy Maxi Life', ' California', ' Camry', ' Caravelle', ' Cascada', ' Citigo', ' Combo Life', ' Corolla', ' Corsa', ' Crossland X', ' E Class', ' EcoSport', ' Edge', ' Eos', ' Escort', ' Fabia', ' Fiesta', ' Focus', ' Fox', ' Fusion', ' G Class', ' GL Class', ' GLA Class', ' GLB Class', ' GLC Class', ' GLE Class', ' GLS Class', ' GT86', ' GTC', ' Galaxy', ' Getz', ' Golf', ' Golf SV', ' Grand C-MAX', ' Grand Tourneo Connect', ' Grandland X', ' Hilux', ' I10', ' I20', ' I30', ' I40', ' I800', ' IQ', ' IX20', ' IX35', ' Insignia', ' Ioniq', ' Jetta', ' KA', ' Ka+', ' Kadjar', ' Kamiq', ' Karoq', ' Kodiaq', ' Kona', ' Kuga', ' Land Cruiser', ' M Class', ' M2', ' M3', ' M4', ' M5', ' M6', ' Meriva', ' Mokka', ' Mokka X', ' Mondeo', ' Mustang', ' Octavia', ' PROACE VERSO', ' Passat', ' Polo', ' Prius', ' Puma', ' Q2', ' Q3', ' Q5', ' Q7', ' Q8', ' R Class', ' R8', ' RAV4', ' RS3', ' RS4', ' RS5', ' RS6', ' RS7', ' Ranger', ' Rapid', ' Roomster', ' S Class', ' S-MAX', ' S3', ' S4', ' S5', ' S8', ' SL CLASS', ' SLK', ' SQ5', ' SQ7', ' Santa Fe', ' Scala', ' Scirocco', ' Sharan', ' Shuttle', ' Streetka', ' Superb', ' Supra', ' T-Cross', ' T-Roc', ' TT', ' Terracan', ' Tigra', ' Tiguan', ' Tiguan Allspace', ' Touareg', ' Touran', ' Tourneo Connect', ' Tourneo Custom', ' Transit Tourneo', ' Tucson', ' Up', ' Urban Cruiser', ' V Class', ' Vectra', ' Veloster', ' Verso', ' Verso-S', ' Viva', ' Vivaro', ' X-CLASS', ' X1', ' X2', ' X3', ' X4', ' X5', ' X6', ' X7', ' Yaris', ' Yeti', ' Yeti Outdoor', ' Z3', ' Z4', ' Zafira', ' Zafira Tourer', ' i3', ' i8', '180', '200', '220', '230'];
+
+		var enginesize = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.2, 3.5, 3.6, 3.7, 4.0, 4.1, 4.2, 4.3, 4.4, 4.5, 4.7, 5.0, 5.2, 5.4, 5.5, 6.0, 6.2, 6.3, 6.6];
+
+		var year = [2023, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000, 1999, 1998, 1997, 1996, 1995, 1991, 1970];
+
+		var transmission = ['Automatic', 'Manual', 'Other', 'Semi-Auto'];
+
+		var fueltype = ['Diesel', 'Electric', 'Hybrid', 'Other', 'Petrol'];
+
+		// Loop through the options array and generate <option> tags
+		for (var i = 0; i < models.length; i++) {
+		  var option = $("<option>");
+		  option.val(models[i]);
+		  option.text(models[i]);
+		  $("#select_model").append(option);
+		}
+
+		for (var i = 0; i < transmission.length; i++) {
+		  var option = $("<option>");
+		  option.val(transmission[i]);
+		  option.text(transmission[i]);
+		  $("#select_transmission").append(option);
+		}
+
+		for (var i = 0; i < fueltype.length; i++) {
+		  var option = $("<option>");
+		  option.val(fueltype[i]);
+		  option.text(fueltype[i]);
+		  $("#select_fueltype").append(option);
+		}
+
+		for (var i = 0; i < enginesize.length; i++) {
+		  var option = $("<option>");
+		  option.val(enginesize[i]);
+		  option.text(enginesize[i]);
+		  $("#select_enginesize").append(option);
+		}
+
+		for (var i = 0; i < year.length; i++) {
+		  var option = $("<option>");
+		  option.val(year[i]);
+		  option.text(year[i]);
+		  $("#select_year").append(option);
+		}
+	</script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <title>My Form Page</title>
+  </head>
+  <body>
+      <h1 style="text-align:center;">PREVISÃO DE CONSUMO DE ENERGIA</h1>
+      <p style="text-align:justify; padding:20px;">A concessionária de energia elétrica a qual você trabalha registra o consumo de energia de Caxias do Sul há vinte anos de hora em hora. Os dados são armazenados para estudos estatísticos e registro histórico. Agora, a empresa deseja prever o consumo de energia elétrica da cidade em megawatts(MW) para o dia seguinte, o próximo, ou quem sabe para a semana inteira. Seu trabalho como cientista de dados é usar algoritmos de aprendizado de máquina para fazer essas previsões. O modelo desta página faz previsões para até uma semana, mas é possível estender o perído.
+      <div class="w-50 mx-auto">
+        <form id="my-form" action="/formtimeseries" method="post">
+          <table class="table table-striped-columns">
+            <tr>
+              <td>
+                <div class="input-group">
+                  <span class="input-group-text">Quantos dias prentende fazer a previsão?</span>
+                  <select id="my-select" name="my-select" class="form-select" aria-label="Default select example">
+                    <option value="1days">Um dia</option>
+                    <option value="2days">Dois dias</option>
+                    <option value="3days">Três dias</option>
+                    <option value="4days">Quatro dias</option>
+                    <option value="5days">Cinco dias</option>
+                    <option value="6days">Seis dias</option>
+                    <option value="7days">Sete dias</option>
+                  </select>
+                </div>
+              </td>
+              <td>
+                <div class="input-group">
+                  <input type="submit" name="submit" value="Submit">
+                </div>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      <div class="w-50 mx-auto">
+        <table class="table table-striped-columns">
+          {% for row in table_data %}
+          <tr>
+            {% for item in row %}
+            <td>{{ item }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+  </body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/css/classifier.css" rel="stylesheet">
+    <title>Classificador</title>
+  </head>
+  <body>
+    <h1 style="text-align:center;">PREVISÃO DE CANCELAMENTO DE ASSINATURA</h1>
+    <p style="text-align:justify; padding:20px;">Você trabalha em uma empresa de telecomunicações e sua tarefa é, através de modelos de machine learning, prever se um cliente irá cancelar a sua assinatura. </p>
+    <p style="text-align:justify; padding:20px; margin-top:-55px">Os dados abaixo são usados para consulta ao modelo treinado. Caso você queira saber se um cliente pretende cancelar sua assinatura basta preencher os dados abaixo para que o modelo diga se ele tem o perfil de quem vai deixar a empresa ou não.</p>
+    <div class="w-auto p-3">
+      <form action="/formclassifier" method="post">
+        <table class="table table-striped">
+          <!-- ======= Linha 01 ======= -->
+          <tr>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Gênero</span>
+                <select name="gender" class="form-select" aria-label="Default select example">
+                  <option value="Male">Masculino</option>
+                  <option value="Female">Feminino</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Terceira idade</span>
+                <select name="seniorcitizen" class="form-select" aria-label="Default select example">
+                  <option value="No">Não</option>
+                  <option value="Yes">Sim</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Mora sozinho</span>
+                <select name="partner" class="form-select" aria-label="Default select example">
+                  <option value="No">Não</option>
+                  <option value="Yes">Sim</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Dependentes</span>
+                <select name="dependents" class="form-select" aria-label="Default select example">
+                  <option value="No">Não</option>
+                  <option value="Yes">Sim</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+          <!-- ======= Linha 02 ======= -->
+          <tr>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Cliente há</span>
+                <input type="text" name="tenure" placeholder="meses" aria-label="First name" class="form-control">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Linha telefônica</span>
+                <select name="phoneservice" class="form-select" aria-label="Default select example">
+                  <option value="No">Não</option>
+                  <option value="Yes">Sim</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Múltiplas linhas</span>
+                <select name="multiplelines" class="form-select" aria-label="Default select example">
+                  <option value="No">Não</option>
+                  <option value="Yes">Sim</option>
+                  <option value="No phone service">Sem telefone</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Internet</span>
+                <select name="internetservice" class="form-select" aria-label="Default select example">
+                  <option value="No">Não</option>
+                  <option value="Fiber optic">Fibra óptica</option>
+                  <option value="DSL">DSL</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+          <!-- ======= Linha 03 ======= -->
+          <tr>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Segurança online</span>
+                <select name="onlinesecurity" class="form-select" aria-label="Default select example">
+                  <option value="No">Não</option>
+                  <option value="Yes">Sim</option>
+                  <option value="No internet service">Sem internet</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Backup online</span>
+                <select name="onlinebackup" class="form-select" aria-label="Default select example">
+                  <option value="No">Não</option>
+                  <option value="Yes">Sim</option>
+                  <option value="No internet service">Sem internet</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Proteção de dispositivo</span>
+                <select name="deviceprotection" class="form-select" aria-label="Default select example">
+                  <option value="No">Não</option>
+                  <option value="Yes">Sim</option>
+                  <option value="No internet service">Sem internet</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Suporte técnico</span>
+                <select name="techsupport" class="form-select" aria-label="Default select example">
+                  <option value="No">Não</option>
+                  <option value="Yes">Sim</option>
+                  <option value="No internet service">Sem internet</option>
+                </select>
+              </div>
+            </td>
+            <td>
+          </tr>
+          <!-- ======= Linha 04 ======= -->
+          <tr>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">TV por streaming</span>
+                <select name="streamingtv" class="form-select" aria-label="Default select example">
+                  <option value="No">Não</option>
+                  <option value="Yes">Sim</option>
+                  <option value="No internet service">Sem internet</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Filmes por streaming</span>
+                <select name="streamingmovies" class="form-select" aria-label="Default select example">
+                  <option value="No">Não</option>
+                  <option value="Yes">Sim</option>
+                  <option value="No internet service">Sem internet</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Contrato</span>
+                <select name="contract" class="form-select" aria-label="Default select example">
+                  <option value="Month-to-month">Mensal</option>
+                  <option value="One year">1 ano</option>
+                  <option value="Two year">2 anos</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Fatura eletrônica</span>
+                <select name="paperlessbilling" class="form-select" aria-label="Default select example">
+                  <option value="No">Não</option>
+                  <option value="Yes">Sim</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+          <!-- ======= Linha 05 ======= -->
+          <tr>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Pagamento</span>
+                <select name="paymentmethod" class="form-select" aria-label="Default select example">
+                  <option value="Mailed check">Fatura por email</option>
+                  <option value="Bank transfer (automatic)">Transferência automática</option>
+                  <option value="Credit card (automatic)">Cartão de crédito</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Mensalidade</span>
+                <input type="text" name="monthlycharges" placeholder="R$" aria-label="First name" class="form-control">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">Total em mensalidades</span>
+                <input type="text" name="totalcharges" placeholder="R$" aria-label="First name" class="form-control">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <input type="submit" name="submit" value="Analisar">
+              </div>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <div id="test" class="output"></div>
+    <div class="w-auto p-3">
+      {% if submitted %} 
+        {% if churn %}
+          <div id="cancel" class="output">
+            <p>O usuário tem o perfil de quem pretende cancelar sua assinatura.</p> 
+          </div>
+        {% else %}
+          <div id="stay" class="output">
+            <p>O usuário permenecerá cliente.</p> 
+          </div>
+        {% endif %} 
+      {% endif %}
+    </div>
+    <div class="w-auto p-3">
+      <div id="tips" class="row">
+        <p style="text-align: center;">Abaixo, algumas dicas de preenchimento.</p>
+        <div class="col">
+          <table class="table table-striped">
+            <tr>
+              <th></th>
+              <th>Cancelaram</th>
+              <th></th>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Gênero</th>
+              <td>Masculino</td>
+              <td>Feminino</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Terceira idade</th>
+              <td>Sim</td>
+              <td>Não</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Mora sozinho</th>
+              <td>Não</td>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Dependentes</th>
+              <td>Não</td>
+              <td>Não</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Cliente há</th>
+              <td>4</td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Linha telefônica</th>
+              <td>Sim</td>
+              <td>Não</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Múltiplas linhas</th>
+              <td>Sim</td>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Internet</th>
+              <td>Fibra óptica</td>
+              <td>Fibra óptica</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Segurança online</th>
+              <td>Não</td>
+              <td>Não</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Backup online</th>
+              <td>Não</td>
+              <td>Não</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Proteção de dispositivo</th>
+              <td>Não</td>
+              <td>Não</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Suporte técnico</th>
+              <td>Não</td>
+              <td>Não</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">TV por streaming</th>
+              <td>Sim</td>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Filmes por straming</th>
+              <td>Sim</td>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Contrato</th>
+              <td>Mensal</td>
+              <td>Mensal</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Fatura eletrônica</th>
+              <td>Sim</td>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Pagamento</th>
+              <td>Transferência automática</td>
+              <td>Transferência automática</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Mensalidade</th>
+              <td>100.0</td>
+              <td>90.0</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Total em mensalidades</th>
+              <td>2568.0</td>
+              <td>3182.0</td>
+            </tr>
+          </table>
+        </div>
+        <div class="col">
+          <table class="table table-striped">
+            <tr>
+              <th></th>
+              <th>Permaneceram clientes</th>
+              <th></th>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Gênero</th>
+              <td>Masculino</td>
+              <td>Feminino</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Terceira idade</th>
+              <td>Não</td>
+              <td>Não</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Mora sozinho</th>
+              <td>Não</td>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Dependentes</th>
+              <td>Sim</td>
+              <td>Não</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Cliente há</th>
+              <td>46</td>
+              <td>69</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Linha telefônica</th>
+              <td>Sim</td>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Múltiplas linhas</th>
+              <td>Não</td>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Internet</th>
+              <td>Não</td>
+              <td>DSL</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Segurança online</th>
+              <td>Sem internet</td>
+              <td>Não</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Backup online</th>
+              <td>Sem internet</td>
+              <td>Não</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Proteção de dispositivo</th>
+              <td>Sem internet</td>
+              <td>Não</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Suporte técnico</th>
+              <td>Sem internet</td>
+              <td>Não</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">TV por streaming</th>
+              <td>Sem internet</td>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Filmes por straming</th>
+              <td>Sem internet</td>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Contrato</th>
+              <td>1 anos</td>
+              <td>2 anos</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Fatura eletrônica</th>
+              <td>Não</td>
+              <td>Não</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Pagamento</th>
+              <td>Fatura por email</td>
+              <td>Cartão de crédito</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Mensalidade</th>
+              <td>20.0</td>
+              <td>50.0</td>
+            </tr>
+            <tr>
+              <th class="dicas-cabecalho">Total em mensalidades</th>
+              <td>1376.0</td>
+              <td>1517.0</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
