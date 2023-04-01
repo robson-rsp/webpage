@@ -1,5 +1,6 @@
-# Webpage Porfolio
 ![GitHub](https://img.shields.io/github/license/robson-rsp/streamlit-deploy)
+___
+# Webpage Porfolio
 
 Página com deploy de alguns modelos de Machine Learning.
 
@@ -21,4 +22,4 @@ Projeto de uma página pessoal contendo deploy de modelos de Machine Learning. A
 * Javascript
 ___
 
-**Autor:** Robson de Souza Pedroso
+**Autor:** Robson Pedroso
